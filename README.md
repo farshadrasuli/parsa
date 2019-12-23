@@ -25,7 +25,8 @@ Copyright (c) 2019
 Distributed under the LaTeX Project Public License
 It may be distributed and/or modified under the LaTeX Project Public License,
 version 1.3c or higher (your choice). The latest version of
-this license is at: http://www.latex-project.org/lppl.txt
+this license is at:
+http://www.latex-project.org/lppl.txt
 
 This work is “author-maintained” (as per LPPL maintenance status)
 by Farshad Rasuli.
