@@ -21,7 +21,7 @@ Current version release date: 2019/12/14
 ______________
 Farshad Rasuli
 
-Copyright (c) 2019
+Copyright (c) 2019-2020
 Distributed under the LaTeX Project Public License
 It may be distributed and/or modified under the LaTeX Project Public License,
 version 1.3c or higher (your choice). The latest version of
