@@ -3,7 +3,7 @@ A XeLaTeX package for theses and dissertations at Iranian Universities as fast a
 
 ____________________
 The Parsa package
-v1.1
+v1.1.0.1
 
 While time is limited, preparing thesis and dissertations take a lot of time for editing required forms.
 This package will help you to prepare the forms you need most easily and as soon as possible.
@@ -17,7 +17,7 @@ In doing so, please always explain your issue well enough, and always
 include a minimal working example showing the issue.
 
 First version release date: 2019/12/12
-Current version release date: 2019/12/14
+Current version release date: 2020/3/6
 ______________
 Farshad Rasuli
 
