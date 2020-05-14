@@ -1,5 +1,5 @@
 ____________________
-parsa
+# parsa
 
 A XeLaTeX package for theses and dissertations at Iranian Universities as fast and as efficiently as possible.
 ______________
