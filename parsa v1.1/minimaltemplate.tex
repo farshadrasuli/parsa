@@ -1,0 +1,230 @@
+%
+%                                                این پرونده دارای گواهی LPPL است %
+%                                                     و نباید در هیچ جایی آپلود شود؛ %
+%                                                     فقط مجاز به لینک دادن هستید. %
+% http://github.com/farshadrasuli/parsa                                       %
+%                     استفاده از این پرونده به معنای پذیرش این قانون است. %
+%   __________________________________________________
+%   Copyright (c) 2019  Farshad Rasuli         
+%                        
+%%
+%% This file is `minimaltemplate.tex'
+%%
+%% A prepared template 
+%% for making your Thesis or Dissertation faster and more efficient than possible
+%%
+%%   __________________________________________________
+%%   Copyright (c) 2019  Farshad Rasuli
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Farshad Rasuli.
+%%
+%%
+%%   Location on CTAN: /macros/xetex/latex/parsa
+%%
+%%   Issue tracker: http://github.com/farshadrasuli/parsa
+%%
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT DEFINITION
+%----------------------------------------------------------------------------------------
+\documentclass[%
+12pt,% Options: 10pt, 11pt, 12pt
+twoside, % Other option: oneside
+openany, % Defaul option for book class is openright
+%twocolumn, % Use for two column typesetting
+thesis, % Other option: dissertation or comment this option for other purposes
+]{book}
+
+%----------------------------------------------------------------------------------------
+%	PAGE LAYOUT
+%----------------------------------------------------------------------------------------
+\usepackage[
+papersize={210mm,297mm},% Specify the paper dimensions
+layoutsize={210mm,297mm}, layouthoffset=0mm, layoutvoffset=0mm, % Specify the dimensions of the layout and it's horizontal and vertical distance from the beginning of the paper.
+%showcrop, % Uncomment to see the layout boundaries
+top=25mm, includehead, % Margin from top to top of the header
+bottom=25mm, heightrounded, % Margin from Bottom
+bindingoffset=10mm, % Binding margin
+inner=12mm, outer=22mm, % The inner/outer edge of the layout (inner:outer ratio in two-side is 1:1.5)
+marginparwidth=0mm, marginparsep=0mm, % Specify the border width and distance from the bottom of the body of the text. (These marginal notes are placed inside the outer margin of the layout.)
+%columnsep=10mm % Adjust separation between columns in two column mode.
+%showframe, % This option is for drawing a border around the textbody.
+]{geometry}
+
+%----------------------------------------------------------------------------------------
+%	HEADER AND FOOTER SETTINGS
+%----------------------------------------------------------------------------------------
+\usepackage{fancyhdr}
+% The default width of the headers and footers equals the width of the text. You can make the width wider (or narrower) by these commands to overhang the outside margin where the marginal notes are printed
+\addtolength{\headwidth}{\marginparwidth}
+\addtolength{\headwidth}{\marginparsep}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amsfonts,amsthm,amssymb,amsbsy,amsopn,amstext}
+\usepackage{mhsetup,mathtools}
+\usepackage[usenames,dvpinames,table]{xcolor}
+\usepackage{color}
+\usepackage{wrapfig} % Provides the environments for typesetting a float and text wrap around it
+%\usepackage{subfig}
+\usepackage[hypcap=true]{caption}
+%\usepackage{capt-of}
+%\usepackage{subcaption}
+\usepackage{setspace} 
+\usepackage[pagebackref=false]{hyperref}
+\usepackage[perpage]{footmisc} % This option resets footnote numbering for each page of the document.
+\usepackage[fulladjust]{marginnote} % The package might be used to create a note in the margin
+\usepackage{adjustbox}
+
+%----------------------------------------------------------------------------------------
+%	PARSA AND XEPERSIAN PACKAGE AND CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\usepackage{parsa}
+\usepackage[localise,fontsloadable]{xepersian}
+\settextfont{IRZar} % Specify main content font with a unicode Persian font
+\defpersianfont\ParsaHeaderFont{IRNazanin} % Specify font of the header
+
+%----------------------------------------------------------------------------------------
+%	SETTINGS AND CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+%\linespread{1.33} % Adjust line spacing by a factor.  The factor <1.33> is for 1.5x and <1.67> for 2x.
+\setcounter{secnumdepth}{5} % Controls printing of section heading numbers at any depth > {level}, where chapter is level zero
+\setcounter{tocdepth}{2} % Controls displaying of section heading numbers in table of content at any depth > {level}, where chapters are level zero.
+%\numberwithin{equation}{chapter} % This command resets equation numbering, which are defined by equation environment for each chapter of the document.
+\SepMark{-} % Changes the section heading number separator
+%\renewcommand{\bibname}{منابع و مراجع} % Converting the word `کتاب‌نامه' into `منابع و مراجع'
+
+%----------------------------------------------------------------------------------------
+%	THESIS/DISSERTATION INFORMATION STARTS FROM HERE:
+%
+
+% --- Institute's Information
+\InstituteLogo{IranLogo}{IntLogo}[30mm][30mm] % {<Iranian logo>}{<International logo>}[<width>][<height>}
+\Institute{(نام مؤسسه)}{(Institute's Name)} % {<persian>}{<latin>}
+\Faculty{(نام دانش‌کده)}{(faculty of ...)} % {<persian>}{<latin>}
+\Department{(نام گروه)}{(Department of ...)} % {<persian>}{<latin>}
+
+% --- Student's Information
+\StudentName{(نام دانشجو)}{(Student's Name)} % {<persian>}{<latin>}
+\StudentMajor{(رشته)}{(Major Discipline)} % {<persian>}{<latin>}
+\StudentMinor{(گرایش)}{(Minor Discipline)} % {<persian>}{<latin>}
+\StudentDegree{کارشناسی‌ارشد}{(Master)} % {<persian>}{<latin>}
+\StudentID{(9876543210)} % {<national ID>}
+\StudentNumber{(0123456789)}
+\StudentEMAIL{(sample@site.com)}
+
+% --- Thesis/Dissertation's Information
+\ParsaTitle{(عنوان): (زیرعنوان)}{(Title): (Subtitle)} % {<persian>}{<latin>}
+\ParsaCompilationDate{(آذر ۱۳۹۸)}{(December, 2019)} % {<persian date>}{<latin date>}
+\ParsaExamDate{(1398/09/21)}{(2019/12/12)} % {<persian date>}{<latin date>}
+
+% --- Members of Committee's Informtion
+\SupervisorName{(نام استاد راهنما)}{(Supervisor's Name)} % {<persian>}{<latin>}
+\SupervisorTitle{(استاد)}{(Professor)} % {<persian>}{<latin>}
+\SupervisorAffiliation{(نام مؤسسه)}{(Institute's Name)} % {<persian>}{<latin>}
+\SupervisorID{(9876543210)} %{<national ID>}
+\SupervisorEMAIL{(example@institute.edu)}
+
+\SecondSupervisorName{(نام استاد راهنمای دوم)}{(Second Supervisor's Name)} % {<persian>}{<latin>}
+\SecondSupervisorTitle{(دانشیار)}{(Associated Professor)} % {<persian>}{<latin>}
+%\SecondSupervisorAffiliation{}{} % {<persian>}{<latin>}
+%\SecondSupervisorID{} % {<national ID>}
+%\SecondSupervisorEMAIL{}
+
+\CosupervisorName{(نام استاد مشاور اول)}{(First Co-superviser's Name)} % {<persian>}{<latin>}
+\CosupervisorTitle{(استادیار)}{(Assistant Prosessor)} % {<persian>}{<latin>}
+%\CosupervisorAffiliation{}{} % {<persian>}{<latin>}
+%\CosupervisorID{} % {<national ID>}
+%\CosupervisorEMAIL{}
+
+\SecondCosupervisorName{(نام استاد مشاور دوم)}{(Second Co-supervisor's Name)} % {<persian>}{<latin>}
+%\SecondCosupervisorTitle{}{} % {<persian>}{<latin>}
+%\SecondCosupervisorAffiliation{}{} % {<persian>}{<latin>}
+%\SecondCosupervisorID{} % {<national ID>}
+%\SecondCosupervisorEMAIL{}
+
+\FirstExaminerName{(نام استاد داور)}{~} % {<persian>}{<latin>}
+%\FirstExaminerTitle{}{} % {<persian>}{<latin>}
+%\FirstExaminerAffiliation{}{} % {<persian>}{<latin>}
+%\FirstExaminerID{} % {<national ID>}
+%\FirstExaminerEMAIL{}
+
+\SecondExaminerName{(نام استاد داور)}{~} % {<persian>}{<latin>}
+%\SecondExaminerTitle{}{} % {<persian>}{<latin>}
+%\SecondExaminerAffiliation{}{} % {<persian>}{<latin>}
+%\SecondExaminerID{} % {<national ID>}
+%\SecondExaminerEMAIL{}
+
+\ThirdExaminerName{(نام استاد داور)}{} % {<persian>}{<latin>}
+%\ThirdExaminerTitle{}{} % {<persian>}{<latin>}
+%\ThirdExaminerAffiliation{}{} % {<persian>}{<latin>}
+%\ThirdExaminerID{} % {<national ID>}
+%\ThirdExaminerEMAIL{}
+
+\RepresentativeName{(نام نماینده تحصیلات تکمیلی)}{(The representative's name)} % {<persian>}{<latin>}
+%\RepresentativeID{} % {<national ID>}
+%\RepresentativeEMAIL{}
+
+%
+%	THESIS/DISSERTATION INFORMATION ENDED.
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\pagestyle{empty}
+
+\titlepageParsi
+\newpage
+%----------------------------------------------------------------------------------------
+%	PERSIAN ABSTRACT STARTS FROME HERE:
+%
+\begin{ParsaAbstractParsi}
+چکیده شامل خلاصه‌ای از هدف یا مسأله‌ی پژوهش، روش‌شناسی، نتایج و تفسیر می‌باشد که خواننده با مطالعه‌ی آن از محتوای پژوهش آگاه می‌شود. در چکیده از اشاره به تاریخچه، تفصیل اقوال، توصیف تکنیک‌ها، فصل بندی، ذکر منابع و آوردن فرمول‌ها، نمودارها و جداول پرهیز شود. متن چکیده حداکثر دارای سی‌صد کلمه باشد و در یک صفحه و در یک پاراگراف نوشته شود. همچنین واژگان کلیدی در یک سطر جداگانه درج می‌شود و تعداد آن بین پنح تا هشت کلمه است. \بند \bigskip
+
+\متن‌سیاه{کلمات کلیدی:} پایان‌نامه، رساله، شیوه‌نامه، قالب آماده، زی‌پرشین، پارسا
+\end{ParsaAbstractParsi}
+%
+%	PERSIAN ABSTRACT ENDED.
+%----------------------------------------------------------------------------------------
+\ParsaPicture{picture}
+
+\ParsaCredit
+\newpage
+
+\ExaminationReportPa
+\newpage
+
+\ParsaCopyleft
+\newpage
+
+\ParsaDedicate{تقدیم به ...}
+
+\begin{ParsaAcknowledge}
+متن سپاس‌گذاری...
+\end{ParsaAcknowledge}
+\newpage
+
+
+\chapter{فصل نمونه}
+محتوای اصلی نوشتار از اینجا آغاز می‌شود...
+
+\pagestyle{empty}
+
+\begin{ParsaCV}
+کارنامک، شمایی کوتاه از کارهای علمی و درجه‌های تحصیلی دانش‌آموخته را نشان می‌دهد و بهتر است به زبان سوم شخص (غایب) نوشته شود. این بخش برای دانش‌آموختگان کارشناسی ارشد، اختیاری و برای دانش‌آموختگان دکترا الزامی است. برای کسانی که پارسا را به زبانی به‌جز فارسی می‌نویسند این کارنامک نیز باید به همان زبان نوشته شود. نمونه‌ای از این کارنامک در ادامه نوشته شده است. \\
+
+رضا تهرانی دانش‌آموخته‌ی دکترای تخصصی رشته‌ی زبان و ادبیات فارسی از دانشگاه ایران در گرایش نگارش علمی در سال ۱۳۹۶ است. او در سال ۱۳۹۰ کارشناسی ارشد خود را از دانشگاه ایران در رشته‌ی تاریخ ادبیات گرایش نگارش در نوشتار علمی و کارشناسی خود را در سال ۱۳۸۷ از دانشگاه ایران در رشته‌ی تاریخ ادبیات دریافت کرد. زمینه‌های پژوهش او نوشتارهای علمی، تاریخ ادبیات و ویرایش تخصصی است. \\
+\end{ParsaCV}
+
+\ExaminationReportLa
+\newpage
+
+\titlepageLatin
+\end{document}
