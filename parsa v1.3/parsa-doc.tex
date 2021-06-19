@@ -1,0 +1,580 @@
+%----------------------------------------------------------------------------------------
+%	DOCUMENT DEFINITION
+%----------------------------------------------------------------------------------------
+\documentclass[%
+12pt,% Options: 10pt, 11pt, 12pt
+twoside, % Selects one- or two-sided layout; default is oneside, except for the book class.
+openany, % Determines if a chapter should start on a right-hand page; default is openright for book.
+%twocolumn, % Typeset in one or two columns; default is onecolumn.
+notitlepage,%
+fleqn,%
+]{article}
+
+%----------------------------------------------------------------------------------------
+%	PAGE LAYOUT
+%----------------------------------------------------------------------------------------
+\usepackage[
+papersize={210mm,297mm},% Specify the paper dimensions
+layoutsize={210mm,297mm}, layouthoffset=0mm, layoutvoffset=0mm, % Specify the dimensions of the layout and it's horizontal and vertical distance from the beginning of the paper.
+%showcrop, % Uncomment to see the layout boundaries
+top=24mm, includehead, % Margin from top to top of the header
+bottom=32mm, heightrounded, % Margin from Bottom
+bindingoffset=10mm, % Binding margin
+inner=21mm, outer=31mm, % The inner/outer edge of the layout (inner:outer ratio in two-side is 1:1.5)
+marginparwidth=0mm, marginparsep=0mm, % Specify the border width and distance from the bottom of the body of the text. (These marginal notes are placed inside the outer margin of the layout.)
+%columnsep=10mm % Adjust separation between columns in two column mode.
+%showframe, % This option is for drawing a border around the textbody.
+]{geometry}
+
+%----------------------------------------------------------------------------------------
+%	HEADER AND FOOTER SETTINGS
+%----------------------------------------------------------------------------------------
+\usepackage{fancyhdr} % Extensive control of page headers and footers in LATEX2ε.
+
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[OL,ER]{\HeaderFont \thepage}\renewcommand{\headrulewidth}{0pt}}
+
+\fancypagestyle{headings}{\fancyhf{}\fancyhead[OL,ER]{\HeaderFont \thepage}\fancyhead[OR]{\ParsaHeaderFont \rightmark}\fancyhead[EL]{\HeaderFont \leftmark}\renewcommand{\headrulewidth}{0.3pt}}
+
+% The default width of the headers and footers equals the width of the text. You can make the width wider (or narrower) by these commands to overhang the outside margin where the marginal notes are printed.
+\addtolength{\headwidth}{\marginparwidth}
+\addtolength{\headwidth}{\marginparsep}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amsfonts,amsthm,amssymb,amsbsy,amsopn,amstext}
+\usepackage{mhsetup,mathtools}
+\usepackage{color} % Colour control for LATEX documents.
+\usepackage[usenames,dvpinames,table]{xcolor} % Driver-independent color extensions for LATEX and pdfLATEX.
+\usepackage{graphics} % Standard LATEX graphics.
+\usepackage{graphicx} % Enhanced support for graphics.
+\usepackage{float} % Improved interface for floating objects.
+\usepackage{adjustbox} % The package provides several macros to adjust boxed content.
+\usepackage[hypcap=true]{caption} % Customising captions in floating environments.
+\usepackage{setspace} % Set space between lines with the \singlespacing, \onehalfspacing, and \doublespacing commands.
+\usepackage[pagebackref=false]{hyperref}
+\usepackage[perpage]{footmisc} % A collection of ways to change the typesetting of footnotes. The package provides a way to number footnotes per page (the perpage option).
+\usepackage{longtable} % The package provides the longtable environment, a multi-page version of tabular.
+\usepackage[fulladjust]{marginnote} % The package might be used to create a note in the margin with the \marginnote command.
+
+
+% --- Other packages
+
+
+%----------------------------------------------------------------------------------------
+%	XEPERSIAN PACKAGE AND CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\usepackage[localise,fontsloadable]{xepersian}
+\settextfont{XB Zar} % Specify main content font with a unicode Persian font.
+\defpersianfont\HeaderFont{XB Kayhan} % Specify font of the header.
+\setlatintextfont{Times New Roman} % Specify font of the non-persian contents.
+
+%----------------------------------------------------------------------------------------
+%	SETTINGS AND CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+%\linespread{1.33} % Adjust line spacing by a factor.  The factor <1.33> is for 1.5x and <1.67> for 2x.
+\setcounter{secnumdepth}{5} % Controls printing of section heading numbers at any depth > {level}, where chapter is level zero.
+\setcounter{tocdepth}{2} % Controls displaying of section heading numbers in table of content at any depth > {level}, where chapters are level zero.
+\numberwithin{equation}{section} % This command resets equation numbering, which are defined by equation environment for each chapter of the document.
+\SepMark{-} % Changes the section heading number separator.
+
+
+\begin{document}
+\pagestyle{plain}
+\عنوان{بسته‌ی پارسا}
+\نویسنده{فرشاد رسولی \thanks{\href{https://github.com/farshadrasuli/parsa}{\lr{github.com/farshadrasuli/parsa}}}}
+\تاریخ{1398/09/21 - \lr{December 12, 2019}}
+\عنوان‌ساز
+\begin{center}
+\begin{minipage}{0.67\textwidth}
+تألیف پایان‌نامه و رساله، چهارچوب از پیش تعیین شده‌ای مانند چگونگی درج سربرگ، ساخت و تکمیل فرم‌های مربوطه و تدوین عناصر مختلف دارد\@. این بسته با هدف تولید فرم‌های مورد نیاز، به منطور تسریع فرآیند تألیف پایان‌نامه و رساله توسط دانشجو‑پژوهشگر تهیه شده‌است\@. \\
+امیدوارم با استفاده از این بسته، در مدت زمان تهیه‌ی پایان‌نامه و رساله، صرفه‌جویی کافی حاصل شود و به جای صرف وقت به ویرایش پایان‌نامه، زمان بیشتری به مسائل پژوهشی اختصاص یابد\@.
+\end{minipage}
+\end{center}
+\tableofcontents
+\section*{سپاس‌گزاری}
+\addcontentsline{toc}{section}{سپاس‌گزاری}
+از جناب آقای \موکد{وفا کارن‌پهلو} بابت تهیه و توسعه‌ی بسته‌ی \موکد{زی‌پرشین} سپاس‌گزاری می‌کنم و برای ایشان آرزوی سلامتی و سعادت دارم\@. کار بی‌نظیر ایشان در تهیه‌ی بسته‌ی زی‌پرشین، الهام بخش تهیه‌ی بسته‌ی \موکد{پارسا} بوده‌است.
+
+\section{شروع کار}
+طبقه‌ی نوشتار \زیرنویس{\متن‌لاتین{documentclass}} را از نوع کتاب انتخاب کرده و سپس با استفاده از فرمان زیر بسته‌ی \موکد{پارسا} فراخوانی کنید\@.
+\begin{latin}\begin{verbatim}
+\usepackage[<options>]{parsa}
+\end{verbatim} \end{latin}
+برای گزینه‌های این بسته، $\tt{[<options>]}$ ، قسمت \رجوع{ParsaInf} را ببینید\@. اکنون بسته‌ی \XePersian ~را فراخوانی کنید\@.
+\begin{latin}\begin{verbatim}
+\usepackage{xepersian}
+\end{verbatim} \end{latin}
+قلم اصلی متن را با فرمان زیر تعیین کنید\@. توصیه می‌شود برای قلم اصلی، از قلم زر \زیرنویس{توسعه‌دهندگان مختلف، نگارش‌های متفاوتی از قلم زر با نام‌های \متن‌لاتین{B Zar}، \متن‌لاتین{XB Zar}، \متن‌لاتین{XW Zar}، و \متن‌لاتین{IRZar} ~منتشر کرده‌اند که استفاده از \متن‌لاتین{XB Zar} ~توصیه می‌شود.} استفاده کنید\@.
+\begin{latin}\begin{verbatim}
+\settextfont{<font name>}
+\end{verbatim} \end{latin}
+قلم سربرگ را با فرمان زیر تعیین کنید\@. توصیه می‌شود برای قلم سربرگ، از قلم نازنین \زیرنویس{از بین نگارش‌های متفاوت قلم نازنین با نام‌های \متن‌لاتین{B Nazanin}، \متن‌لاتین{XB Kayhan}، و \متن‌لاتین{IRNazanin} ~استفاده از \متن‌لاتین{XB Kayhan} ~توصیه می‌شود.} استفاده کنید\@.
+\begin{latin}\begin{verbatim}
+\defpersianfont\ParsaHeaderFont{<font name>}
+\end{verbatim} \end{latin}
+
+\section{ورود اطلاعات}
+برای وارد کردن اطلاعات پایان‌نامه (یا رساله)، فرمان مورد نظر خود را، مطابق دستورات شرح داده‌شده، در قسمت سرآغاز \زیرنویس{\متن‌لاتین{preamble}}~وارد کنید.
+\subsection{اطلاعات مؤسسه}
+اطلاعات مؤسسه را با فرمان‌های زیر وارد کنید\@. \بند
+• نام مؤسسه:
+\begin{latin}\begin{verbatim}
+\Institute{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+دقت شود که آرگومان اول، $\left\lbrace \tt{<persian>} \right\rbrace $، برای ورود اطلاعات به زبان پارسی و آرگومان دوم، $\left\lbrace \tt{<latin>} \right\rbrace $، برای ورود اطلاعات به لاتین درنظر گرفته شده است. این اصل برای تمام فرمان‌های این بسته که دو آرگومان دارند رعایت شده است\@. به همین صورت، برای وارد کردن سایر اطلاعات، از فرمان‌ها به شرح زیر استفاده کنید\@. \بند
+• نشان مؤسسه:
+\begin{latin}\small \begin{verbatim}
+\InstituteLogo{<Iranian logo>}{<International logo>}[<width>][<height>]
+\end{verbatim} \end{latin}
+با آرگومان‌های اختیاری، پهنا و بلندای نشان مؤسسه را، در صفحه‌ی عنوان تنظیم کنید. مقدار پیش‌فرض ۳۰×۳۰ میلی‌متر است\@. \بند
+• نام دانشکده یا پژوهشکده:
+\begin{latin}\begin{verbatim}
+\Faculty{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• نام گروه:
+\begin{latin}\begin{verbatim}
+\Department{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+\subsection{اطلاعات نگارنده}
+برای وارد کردن اطلاعات نگارنده، از فرمان‌های زیر استفاده کنید\@. چنان‌چه قصد دارید که یکی از دو آرگومان فرمانی را خالی بگذارید، کافی‌است از نشانه‌ی مد ($\sim$) استفاده کنید\@. \بند
+• نام کامل نگارنده‌ی اثر:
+\begin{latin}\begin{verbatim}
+\StudentName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رشته‌ی تحصیلی:
+\begin{latin}\begin{verbatim}
+\StudentMajor{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• گرایش تحصیلی:
+\begin{latin}\begin{verbatim}
+\StudentMinor{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• مقطع تحصیلی:
+\begin{latin}\begin{verbatim}
+\StudentDegree{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\StudentID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره دانشجویی:
+\begin{latin}\begin{verbatim}
+\StudentNumber{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\StudentEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+\subsection{اطلاعات سند} \label{ParsaInf}
+اطلاعات سند را با فرمان‌های زیر وارد کنید\@. \بند
+• نوع سند: باید نوع سندی که قصد تهیه‌‌ی آن را دارید، از آن جهت که پایان‌نامه است یا رساله، مشخص کنید\@. هنگام فراخوانی بسته‌ی پارسا، امکان استفاده از گزینه‌ی \متن‌لاتین{\متن‌تایپ{thesis}} ~یا \متن‌لاتین{\متن‌تایپ{dissertation}} ~وجود دارد\@. گزینه‌ی \متن‌لاتین{\متن‌تایپ{thesis}} ~برای انتخاب \موکد{پایان‌نامه} و گزینه‌ی \متن‌لاتین{\متن‌تایپ{dissertation}} ~برای انتخاب \موکد{رساله} استفاده می‌گردد\@. چنان‌چه از این گزینه استفاده نکردید، می‌توانید با فرمان زیر نوع سند خود را مشخص کنید\@.
+\begin{latin}\begin{verbatim}
+\ParsaTarget{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• عنوان سند:
+\begin{latin}\begin{verbatim}
+\ParsaTitle{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• تاریخ تدوین که در صفحه‌ی عنوان درج می‌شود (به صورت ماه و سال وارد شود):
+\begin{latin}\begin{verbatim}
+\ParsaCompilationDate{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• تاریخ دقیق دفاع از پایان‌نامه یا رساله:
+\begin{latin}\begin{verbatim}
+\ParsaExamDate{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+\subsection{اطلاعات استاد راهنما} \label{SupInf}
+اطلاعات استاد راهنما را با فرمان‌های زیر وارد کنید\@. \بند
+• نام کامل استاد راهنما:
+\begin{latin}\begin{verbatim}
+\SupervisorName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• سمت یا مرتبه‌ی علمی:
+\begin{latin}\begin{verbatim}
+\SupervisorTitle{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• وابستگی سازمانی:
+\begin{latin}\begin{verbatim}
+\SupervisorAffiliation{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\SupervisorID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\SupervisorEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+\subsection{اطلاعات استاد راهنمای دوم}
+همانند استاد راهنما، قسمت \رجوع{SupInf}، اطلاعات استاد راهنمای دوم را -در صورت وجود- با فرمان‌های زیر وارد کنید\@. با ورود اطلاعات استاد راهنمای دوم، عبارت \موکد{استاد راهنما} درج شده در صفحه عنوان به \موکد{استادان راهنما} تغییر می‌کند\@. اگر یک استاد راهنما دارید، از استفاده از این فرمان‌ها به هر شکلی صرف نظر کنید\@. \بند
+• نام کامل استاد راهنمای دوم:
+\begin{latin}\begin{verbatim}
+\SecondSupervisorName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+• سمت یا مرتبه‌ی علمی:
+\begin{latin}\begin{verbatim}
+\SecondSupervisorTitle{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• وابستگی سازمانی:
+\begin{latin}\begin{verbatim}
+\SecondSupervisorAffiliation{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\SecondSupervisorID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\SecondSupervisorEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+روند ورود اطلاعات برای سایر اعضای کمیته‌ی دفاع مانند استادان مشاور، استادان داور و نماینده‌ی تحصیلات تکمیلی نیز به همین صورت می‌باشد\@. 
+\subsection{اطلاعات استاد مشاور}
+اطلاعات استاد مشاور را -در صورت وجود- با فرمان‌های زیر وارد کنید\@. در صفحه‌ی عنوان، به صورت پیش‌فرض قسمت استادان مشاور وجود ندارد؛ در صورت استفاده از فرمان‌های زیر، این قسمت به صفحه عنوان افزوده خواهد شد\@. \بند
+• نام کامل استاد مشاور:
+\begin{latin}\begin{verbatim}
+\CosupervisorName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• سمت یا مرتبه‌ی علمی:
+\begin{latin}\begin{verbatim}
+\CosupervisorTitle{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• وابستگی سازمانی:
+\begin{latin}\begin{verbatim}
+\CosupervisorAffiliation{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\CosupervisorID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\CosupervisorEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+\subsection{اطلاعات استاد مشاور دوم}
+اطلاعات استاد مشاور دوم را -در صورت وجود- با فرمان‌های زیر وارد کنید\@. همانند استاد راهنما دوم، با وارد کردن اطلاعات استاد مشاور دوم، عبارت \موکد{استاد مشاور} درج شده در صفحه عنوان به \موکد{استادان مشاور} تغییر می‌کند\@. \بند
+• نام کامل استاد مشاور دوم:
+\begin{latin}\begin{verbatim}
+\SecondCosupervisorName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• سمت یا مرتبه‌ی علمی:
+\begin{latin}\begin{verbatim}
+\SecondCosupervisorTitle{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• وابستگی سازمانی:
+\begin{latin}\begin{verbatim}
+\SecondCosupervisorAffiliation{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\SecondCosupervisorID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\SecondCosupervisorEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+\subsection{اطلاعات استاد داور اول}
+اطلاعات استاد داور اول را با فرمان‌های زیر وارد کنید\@. \بند
+• نام کامل استاد داور اول:
+\begin{latin}\begin{verbatim}
+\FirstExaminerName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• سمت یا مرتبه‌ی علمی:
+\begin{latin}\begin{verbatim}
+\FirstExaminerTitle{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• وابستگی سازمانی:
+\begin{latin}\begin{verbatim}
+\FirstExaminerAffiliation{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\FirstExaminerID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\FirstExaminerEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+\subsection{اطلاعات استاد داور دوم}
+اطلاعات استاد داور دوم را -در صورت وجود- با فرمان‌های زیر وارد کنید\@. \بند
+• نام کامل استاد داور دوم:
+\begin{latin}\begin{verbatim}
+\SecondExaminerName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• سمت یا مرتبه‌ی علمی:
+\begin{latin}\begin{verbatim}
+\SecondExaminerTitle{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• وابستگی سازمانی:
+\begin{latin}\begin{verbatim}
+\SecondExaminerAffiliation{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\SecondExaminerID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\SecondExaminerEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+\subsection{اطلاعات استاد داور سوم}
+اطلاعات استاد داور سوم را -در صورت وجود- با فرمان‌های زیر وارد کنید\@. \بند
+• نام کامل استاد داور سوم:
+\begin{latin}\begin{verbatim}
+\ThirdExaminerName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• سمت یا مرتبه‌ی علمی:
+\begin{latin}\begin{verbatim}
+\ThirdExaminerTitle{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• وابستگی سازمانی:
+\begin{latin}\begin{verbatim}
+\ThirdExaminerAffiliation{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\ThirdExaminerID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\ThirdExaminerEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+\subsection{اطلاعات نماینده‌ی تحصیلات تکمیلی}
+اطلاعات نماینده‌ی تحصیلات تکمیلی را با فرمان‌های زیر وارد کنید\@. \بند
+• نام کامل نماینده‌ی تحصیلات تکمیلی:
+\begin{latin}\begin{verbatim}
+\RepresentativeName{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• شماره ملی:
+\begin{latin}\begin{verbatim}
+\RepresentativeID{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+• رایانامه:
+\begin{latin}\begin{verbatim}
+\RepresentativeEMAIL{<persian>}{<latin>}
+\end{verbatim} \end{latin}
+
+\section{ساخت فرم‌ها}
+پس از تکمیل اطلاعت لازم، با استفاده از فرمان‌های گفته‌شده، کار اصلی بسته‌ی پارسا آغاز می‌گردد\@. برای ساخت فرم‌های مورد نظرتان، کافی است از فرمان مربوط به ساخت هر فرم در محلی که می‌خواهید درج شود استفاده کنید.\\
+\begin{table}[H] \adjustbox{pagecenter}{
+\begin{tabular}{lr}
+\lr{\texttt{$\backslash$titlepageParsi}}                    & صفحه‌ی عنوان به فارسی       \\
+\lr{\texttt{$\backslash$ParsaPicture}}                      & عکس سرآغاز                  \\
+\lr{\texttt{$\backslash$ParsaCredit}}                       & اصالت و مالکیت اثر          \\
+\lr{\texttt{$\backslash$ExaminationReportPa}}               & صورت جلسه‌ی دفاع به فارسی   \\
+\lr{\texttt{$\backslash$ParsaCopyleft}}                     & مجوز بهره‌برداری            \\
+\lr{\texttt{$\backslash$ParsaDedicate\{\rl{تقدیم به...}\}}} & تقدیم                       \\
+\lr{\texttt{$\backslash$ExaminationReportLa}}               & صورت جلسه‌ی دفاع به انگلیسی \\
+\lr{\texttt{$\backslash$titlepageLatin}}                    & صفحه عنوان به انگلیسی      
+\end{tabular} }
+\end{table}
+
+توجه کنید که فقط فرمان تقدیم، \textrm{\lr{\texttt{$\backslash$ParsaDedicate}}}~، به آرگومان نیاز دارد\@. متن تقدیم خود را در آرگومان این فرمان بنویسید\@. \بند
+برای نوشتن چکیده‌ی پایان‌نامه یا رساله، به زبان فارسی از محیط \متن‌لاتین{\متن‌تایپ{ParsaAbstractParsi}}~، و برای چکیده به لاتین از محیط \متن‌لاتین{\متن‌تایپ{ParsaAbstractLatin}} استفاده کنید\@. \بند
+\begin{latin}
+\begin{minipage}{0.48\textwidth}
+\begin{verbatim}
+\begin{ParsaAbstractParsi}
+
+\end{ParsaAbstractParsi}
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\begin{verbatim}
+\begin{ParsaAbstractParsi}
+
+\end{ParsaAbstractParsi}
+\end{verbatim}
+\end{minipage}
+\end{latin}
+\vspace{10mm}
+برای نوشتن متن سپاس‌گزاری از محیط \متن‌لاتین{\متن‌تایپ{ParsaAcknowledgment}} ~استفاده کنید.\\
+\begin{latin} \begin{verbatim}
+\begin{ParsaAcknowledgment}
+
+\end{ParsaAcknowledgment}
+\end{verbatim} \end{latin}
+
+\section{کدهای آماده}
+کدهای زیر برای استفاده در \LaTeX ~برای شما آماده شده‌است. برای استفاده از هر کد، کافی‌است علامت درصد ابتدای هرخط را حذف کنید.
+\begin{latin} \begin{verbatim}
+\documentclass[a4paper,12pt,twoside]{book}
+
+\usepackage{parsa}
+\usepackage[fontsloadable]{xepersian}
+\settextfont{} 
+\defpersianfont\ParsaHeaderFont{} 
+
+
+
+%------------------------------------------------------------------
+%	THESIS/DISSERTATION INFORMATION STARTS FROM HERE:
+%
+
+% --- Institute's Information
+%\InstituteLogo{}{}[][] 
+%\Institute{}{}
+%\Faculty{}{}
+%\Department{}{} 
+
+% --- Student's Information
+%\StudentName{}{} 
+%\StudentMajor{}{}
+%\StudentMinor{}{}
+%\StudentDegree{}{}
+%\StudentID{}
+%\StudentNumber{}
+%StudentEMAIL{}
+
+% --- Thesis/Dissertation's Information
+%\ParsaTitle{}{} % {<persian>}{<latin>}
+%\ParsaCompilationDate{}{} % {<persian date>}{<latin date>}
+%\ParsaExamDate{}{} % {<persian date>}{<latin date>}
+
+% --- Members of The Committee's Informtion
+%\SupervisorName{}{} 
+%\SupervisorTitle{}{}
+%\SupervisorAffiliation{}{}
+%\SupervisorID{}
+%\SupervisorEMAIL{}
+
+%\SecondSupervisorName{}{}
+%\SecondSupervisorTitle{}{}
+%\SecondSupervisorAffiliation{}{}
+%\SecondSupervisorID{}
+%\SecondSupervisorEMAIL{}
+
+%\CosupervisorName{}{}
+%\CosupervisorTitle{}{}
+%\CosupervisorAffiliation{}{}
+%\CosupervisorID{}
+%\CosupervisorEMAIL{}
+
+%\SecondCosupervisorName{}{}
+%\SecondCosupervisorTitle{}{}
+%\SecondCosupervisorAffiliation{}{}
+%\SecondCosupervisorID{}
+%\SecondCosupervisorEMAIL{}
+
+%\FirstExaminerName{}{}
+%\FirstExaminerTitle{}{}
+%\FirstExaminerAffiliation{}{}
+%\FirstExaminerID{}
+%\FirstExaminerEMAIL{}
+
+%\SecondExaminerName{}{}
+%\SecondExaminerTitle{}{}
+%\SecondExaminerAffiliation{}{}
+%\SecondExaminerID{}
+%\SecondExaminerEMAIL{}
+
+
+
+%\ThirdExaminerName{}{}
+%\ThirdExaminerTitle{}{}
+%\ThirdExaminerAffiliation{}{}
+%\ThirdExaminerID{}
+%\ThirdExaminerEMAIL{}
+
+%\RepresentativeName{}{}
+%\RepresentativeID{}
+%\RepresentativeEMAIL{}
+
+%
+%	THESIS/DISSERTATION INFORMATION ENDED.
+%------------------------------------------------------------------
+
+\begin{document}
+%------------------------------------------------------------------
+%	FRONT MATTER
+%------------------------------------------------------------------
+
+%\frontmatter
+\pagestyle{empty}
+
+\titlepageParsi
+\cleardoublepage
+
+% --- Persian Abstract
+\begin{ParsaAbstractParsi}
+
+\end{ParsaAbstractParsi}
+\newpage
+
+\ParsaPicture{picture}
+\cleardoublepage
+
+\ParsaCredit
+\cleardoublepage
+
+\ExaminationReportPa
+\cleardoublepage
+
+\ParsaCopyleft
+\cleardoublepage
+
+\ParsaDedicate{}
+
+% --- Persian Acknowledgment
+\begin{ParsaAcknowledgment}
+
+\end{ParsaAcknowledgment}
+\cleardoublepage
+
+% --- Tables of Contents
+\tableofcontents \cleardoublepage
+
+\listoffigures  \cleardoublepage
+
+\listoftables \cleardoublepage
+
+%------------------------------------------------------------------
+%	MAIN MATTER
+%------------------------------------------------------------------
+
+%\mainmatter
+\pagestyle{headings}
+
+
+
+
+%------------------------------------------------------------------
+%	BACK MATTER
+%------------------------------------------------------------------
+
+%\backmatter
+\pagestyle{empty}
+
+\cleardoublepage
+% --- Persian CV
+\begin{ParsaCV}
+
+\end{ParsaCV}
+\cleardoublepage
+
+~\newpage
+\ExaminationReportLa
+\cleardoublepage
+
+% --- Latin Abstract
+\begin{ParsaAbstractLatin}
+
+\end{ParsaAbstractLatin}
+
+~\newpage
+\titlepageLatin
+
+\end{document}
+\end{verbatim} \end{latin}
+
+\end{document}

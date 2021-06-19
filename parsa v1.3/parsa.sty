@@ -1,0 +1,655 @@
+%%
+%% This is file “parsa.sty”,
+%%
+%%   __________________________________________________
+%%   Copyright (c) 2019-2020 Farshad Rasuli
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Farshad Rasuli.
+%% 
+%%   Location on CTAN: /macros/xetex/latex/parsa
+%%
+%%   Homepage: http://github.com/farshadrasuli/parsa
+%%
+%%   Issue tracker: https://github.com/farshadrasuli/parsa/issues
+%%
+%%
+
+
+
+% === Package structure: Identification
+\NeedsTeXFormat{LaTeX2e}
+\def\parsa@version{1.3}
+\def\parsadate{2020/4/22}
+\def\parsafirstrelease{2019/12/12}
+\ProvidesPackage{parsa}[\parsadate\space v\parsa@version\space
+A XeLaTeX package for theses and dissertations at Iranian Universities as fast and as efficiently as possible]
+\edef\@parsa@info{****************************************************^^J%
+* ^^J%
+* parsa package (A XeLaTeX package for theses and dissertations at Iranian Universities)^^J%
+* ^^J%
+* Description: The package designed for^^J%
+* thesis/dissertation typography.^^J%
+* ^^J%
+* Copyright (c) 2019-2020 Farshad Rasuli^^J%
+* ^^J%
+* v\parsa@version, \parsadate^^J%
+* ^^J%
+* License: LaTeX Project Public License, version^^J%
+* 1.3c or higher (your choice)^^J%
+* ^^J%
+* Location on CTAN: /macros/xetex/latex/parsa^^J%
+* ^^J%
+* Homepage: http://github.com/farshadrasuli/parsa^^J%
+* ^^J%
+* Issue tracker: http://github.com/farshadrasuli/parsa/issues^^J%
+* ^^J%
+****************************************************}
+
+% === Package structure: Options
+\newcommand{\ParsaTargetPa}{~} \newcommand{\ParsaTargetLa}{~}
+\newcommand{\ParsaTypePa}{~} \newcommand{\ParsaTypeLa}{~}
+\DeclareOption{thesis}{%
+\renewcommand{\ParsaTargetPa}{پایان نامه \\ برای دریافت درجه‌ی کارشناسی‌ارشد}%
+\renewcommand{\ParsaTargetLa}{A Thesis \\ submitted in fulfillment of the requirements
+for Master's degree}%
+\renewcommand{\ParsaTypePa}{پایان‌نامه}\renewcommand{\ParsaTypeLa}{Thesis}}
+
+\DeclareOption{dissertation}{%
+\renewcommand{\ParsaTargetPa}{رساله \\ برای دریافت درجه‌ی دکتری}%
+\renewcommand{\ParsaTargetLa}{A Dissertation \\ submitted in fulfillment of the requirements
+for Doctoral degree}%
+\renewcommand{\ParsaTypePa}{رساله}\renewcommand{\ParsaTypeLa}{Dissertation}}
+
+\ProcessOptions\relax
+
+% === Package structure: Preliminary declarations
+
+\RequirePackage{xparse}
+\RequirePackage{fancyhdr}
+\RequirePackage{graphicx}
+\RequirePackage{multirow}
+\RequirePackage{float}
+\RequirePackage{adjustbox}
+
+
+% === Package structure: More declarations
+
+     % PAGE  STYLE
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[OL,ER]{\ParsaHeaderFont \thepage}\renewcommand{\headrulewidth}{0pt}}
+
+\fancypagestyle{headings}{\fancyhf{}\fancyhead[OL,ER]{\ParsaHeaderFont \thepage}\fancyhead[OR]{\ParsaHeaderFont \rightmark}\fancyhead[EL]{\ParsaHeaderFont \leftmark}\renewcommand{\headrulewidth}{0.3pt}}
+
+     % Create [This Page Intentionally Left Blank] by \cleardoublepage command.
+\newcommand*{\blankpage}{%
+\vspace*{\fill}
+{\centering ~\par}
+\vspace{\fill}}
+\makeatletter
+\renewcommand*{\cleardoublepage}{\clearpage\if@twoside \ifodd\c@page\else
+\blankpage
+\thispagestyle{empty}
+\newpage
+\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+     % Commands
+
+% Institute's Information
+\newcommand{\InstituteLogoPa}{~} \newcommand{\InstituteLogoLa}{~} \newcommand{\InstituteLogoPaSmall}{~} \newcommand{\InstituteLogoLaSmall}{~}
+\NewDocumentCommand{\InstituteLogo}{m m O{3cm} O{3cm}}{\renewcommand{\InstituteLogoPa}{\includegraphics[width=#3,height=#4]{#1}}\renewcommand{\InstituteLogoLa}{\includegraphics[width=#3,height=#4]{#2}}\renewcommand{\InstituteLogoPaSmall}{\includegraphics[width=1.6cm,height=1.6cm]{#1}}\renewcommand{\InstituteLogoLaSmall}{\includegraphics[width=1.6cm,height=1.6cm]{#2}}}
+
+\newcommand{\InstitutePa}{~} \newcommand{\InstituteLa}{~}
+\NewDocumentCommand{\Institute}{m m}{\renewcommand{\InstitutePa}{#1} \renewcommand{\InstituteLa}{#2}}
+
+\newcommand{\FacultyPa}{~} \newcommand{\FacultyLa}{~}
+\NewDocumentCommand{\Faculty}{m m}{\renewcommand{\FacultyPa}{#1} \renewcommand{\FacultyLa}{#2}}
+
+\newcommand{\DepartmentPa}{~} \newcommand{\DepartmentLa}{~}
+\NewDocumentCommand{\Department}{m m}{\renewcommand{\DepartmentPa}{#1}\renewcommand{\DepartmentLa}{#2}}
+
+\newcommand{\captiononePa}{~} \newcommand{\captiononeLa}{~}
+\newcommand{\StudentNamePa}{~} \newcommand{\StudentNameLa}{~}
+\NewDocumentCommand{\StudentName}{m m}{\renewcommand{\StudentNamePa}{#1} \renewcommand{\StudentNameLa}{#2}\renewcommand{\captiononePa}{نگارنده}\renewcommand{\captiononeLa}{by}}
+
+
+
+
+
+% Student's Information
+\newcommand{\StudentMajorPa}{~} \newcommand{\StudentMajorLa}{~}
+\NewDocumentCommand{\StudentMajor}{m m}{\renewcommand{\StudentMajorPa}{#1} \renewcommand{\StudentMajorLa}{#2}}
+
+\newcommand{\StudentMinorPa}{~} \newcommand{\StudentMinorLa}{~}
+\NewDocumentCommand{\StudentMinor}{m m}{\renewcommand{\StudentMinorPa}{#1} \renewcommand{\StudentMinorLa}{#2}}
+
+\newcommand{\StudentDegreePa}{~} \newcommand{\StudentDegreeLa}{~}
+\NewDocumentCommand{\StudentDegree}{m m}{\renewcommand{\StudentDegreePa}{#1} \renewcommand{\StudentDegreeLa}{#2}}
+
+\newcommand{\Studentid}{~}
+\NewDocumentCommand{\StudentID}{m}{\renewcommand{\Studentid}{#1}}
+
+\newcommand{\Studentnumber}{~}
+\NewDocumentCommand{\StudentNumber}{m}{\renewcommand{\Studentnumber}{#1}}
+
+\newcommand{\Studentemail}{~}
+\NewDocumentCommand{\StudentEMAIL}{m}{\renewcommand{\Studentemail}{#1}}
+
+
+
+
+
+% Parsa  Information
+\newcommand{\ParsaTitlePa}{~} \newcommand{\ParsaTitleLa}{~}
+\NewDocumentCommand{\ParsaTitle}{m m}{\renewcommand{\ParsaTitlePa}{#1} \renewcommand{\ParsaTitleLa}{#2}}
+
+\NewDocumentCommand{\ParsaTarget}{m m}{\renewcommand{\ParsaTargetPa}{#1} \renewcommand{\ParsaTargetLa}{#2}}
+
+\newcommand{\ParsaCompilationDatePa}{~} \newcommand{\ParsaCompilationDateLa}{~}
+\NewDocumentCommand{\ParsaCompilationDate}{m m}{\renewcommand{\ParsaCompilationDatePa}{#1} \renewcommand{\ParsaCompilationDateLa}{#2}}
+
+\newcommand{\ParsaExamDatePa}{~} \newcommand{\ParsaExamDateLa}{~}
+\NewDocumentCommand{\ParsaExamDate}{m m}{\renewcommand{\ParsaExamDatePa}{#1} \renewcommand{\ParsaExamDateLa}{#2}}
+
+
+
+
+
+% Supervisor
+\newcommand{\SupervisorNamePa}{~} \newcommand{\SupervisorNameLa}{~}
+\newcommand{\SupervisorTitlePa}{~} \newcommand{\SupervisorTitleLa}{~}
+\newcommand{\SupervisorAffiliationPa}{~} \newcommand{\SupervisorAffiliationLa}{~}
+\newcommand{\Supervisorid}{~}
+\newcommand{\Supervisoremail}{~}
+\newcommand{\captiontwoPa}{~} \newcommand{\captiontwoLa}{~}
+\newcommand{\SupervisorReportPa}{~} \newcommand{\SupervisorReportLa}{~}
+\newcommand{\SupervisorVspace}{~}
+\NewDocumentCommand{\SupervisorName}{m m}{\renewcommand{\SupervisorNamePa}{#1}\renewcommand{\SupervisorNameLa}{#2}\renewcommand{\captiontwoPa}{استاد راهنما}\renewcommand{\captiontwoLa}{Supervisor}\renewcommand{\SupervisorReportPa}{\noindent نام کامل استاد راهنما: ~\textbf{\SupervisorNamePa} \hrulefill \\
+\begin{tabular}{p{0.17\textwidth}p{0.28\textwidth}p{0.15\textwidth}p{0.17\textwidth}p{0.1\textwidth}}
+\textit{مرتبهٔ علمی}     & \textbf{\SupervisorTitlePa} & \textit{شمارهٔ ملی}       & \Supervisorid         & \multicolumn{1}{c}{امضا} \\
+\textit{وابستگی سازمانی} & \SupervisorAffiliationPa    & \textit{رایانامه سازمانی} & \lr{\Supervisoremail} & ~ 
+\end{tabular}
+} \renewcommand{\SupervisorReportLa}{\noindent Supervisor:~\textbf{\SupervisorNameLa} \hrulefill \\
+\begin{tabular}{p{0.11\textwidth}p{0.29\textwidth}p{0.18\textwidth}p{0.17\textwidth}p{0.12\textwidth}}
+\textit{Title}       & \textbf{\SupervisorTitleLa} & \textit{National ID}     & \Supervisorid    & \multicolumn{1}{c}{Signature} \\
+\textit{Affiliation} & \SupervisorAffiliationLa    & \textit{Official E-Mail} & \Supervisoremail & ~ 
+\end{tabular}}\renewcommand{\SupervisorVspace}{~\\[0.5mm]}}
+
+\NewDocumentCommand{\SupervisorTitle}{m m}{\renewcommand{\SupervisorTitlePa}{#1}\renewcommand{\SupervisorTitleLa}{#2}}
+
+\NewDocumentCommand{\SupervisorAffiliation}{m m}{\renewcommand{\SupervisorAffiliationPa}{#1}\renewcommand{\SupervisorAffiliationLa}{#2}}
+
+\NewDocumentCommand{\SupervisorID}{m}{\renewcommand{\Supervisorid}{#1}}
+
+\NewDocumentCommand{\SupervisorEMAIL}{m}{\renewcommand{\Supervisoremail}{#1}}
+
+
+
+
+
+% 2nd Supervisor
+\newcommand{\SecondSupervisorNamePa}{~} \newcommand{\SecondSupervisorNameLa}{~}
+\newcommand{\SecondSupervisorTitlePa}{~} \newcommand{\SecondSupervisorTitleLa}{~}
+\newcommand{\SecondSupervisorAffiliationPa}{~} \newcommand{\SecondSupervisorAffiliationLa}{~}
+\newcommand{\SecondSupervisorid}{~}
+\newcommand{\SecondSupervisoremail}{~}
+\newcommand{\SecondSupervisorReportPa}{~} \newcommand{\SecondSupervisorReportLa}{~}
+\newcommand{\SecondSupervisorVspace}{~}
+\NewDocumentCommand{\SecondSupervisorName}{m m}{\renewcommand{\SecondSupervisorNamePa}{#1}\renewcommand{\SecondSupervisorNameLa}{#2}\renewcommand{\captiontwoPa}{استادان راهنما}\renewcommand{\captiontwoLa}{Supervisors}\renewcommand{\SecondSupervisorReportPa}{\noindent نام کامل استاد راهنمای دوم: ~\textbf{\SecondSupervisorNamePa} \hrulefill \\
+\begin{tabular}{p{0.17\textwidth}p{0.28\textwidth}p{0.15\textwidth}p{0.17\textwidth}p{0.1\textwidth}}
+\textit{مرتبهٔ علمی}     & \textbf{\SecondSupervisorTitlePa} & \textit{شمارهٔ ملی}       & \SecondSupervisorid         & \multicolumn{1}{c}{امضا} \\
+\textit{وابستگی سازمانی} & \SecondSupervisorAffiliationPa    & \textit{رایانامه سازمانی} & \lr{\SecondSupervisoremail} & ~   
+\end{tabular}
+} \renewcommand{\SecondSupervisorReportLa}{\noindent Second Supervisor:~\textbf{\SecondSupervisorNameLa} \hrulefill \\
+\begin{tabular}{p{0.11\textwidth}p{0.29\textwidth}p{0.18\textwidth}p{0.17\textwidth}p{0.12\textwidth}}
+\textit{Title}       & \textbf{\SecondSupervisorTitleLa} & \textit{National ID}     & \SecondSupervisorid    & \multicolumn{1}{c}{Signature} \\
+\textit{Affiliation} & \SecondSupervisorAffiliationLa    & \textit{Official E-Mail} & \SecondSupervisoremail & ~  
+\end{tabular} }\renewcommand{\SecondSupervisorVspace}{~\\[0.5mm]}}
+
+\NewDocumentCommand{\SecondSupervisorTitle}{m m}{\renewcommand{\SecondSupervisorTitlePa}{#1}\renewcommand{\SecondSupervisorTitleLa}{#2}}
+
+\NewDocumentCommand{\SecondSupervisorAffiliation}{m m}{\renewcommand{\SecondSupervisorAffiliationPa}{#1}\renewcommand{\SecondSupervisorAffiliationLa}{#2}}
+
+\NewDocumentCommand{\SecondSupervisorID}{m}{\renewcommand{\SecondSupervisorid}{#1}}
+
+\NewDocumentCommand{\SecondSupervisorEMAIL}{m}{\renewcommand{\SecondSupervisoremail}{#1}}
+
+
+
+
+
+% Co-supervisor
+\newcommand{\CosupervisorNamePa}{~} \newcommand{\CosupervisorNameLa}{~}
+\newcommand{\CosupervisorTitlePa}{~} \newcommand{\CosupervisorTitleLa}{~}
+\newcommand{\CosupervisorAffiliationPa}{~} \newcommand{\CosupervisorAffiliationLa}{~}
+\newcommand{\Cosupervisorid}{~}
+\newcommand{\Cosupervisoremail}{~}
+\newcommand{\captionthreePa}{~} \newcommand{\captionthreeLa}{~}
+\newcommand{\CosupervisorReportPa}{~} \newcommand{\CosupervisorReportLa}{~}
+\newcommand{\CosupervisorVspace}{~}
+\NewDocumentCommand{\CosupervisorName}{m m}{\renewcommand{\CosupervisorNamePa}{#1}\renewcommand{\CosupervisorNameLa}{#2}\renewcommand{\captionthreePa}{استاد مشاور}\renewcommand{\captionthreeLa}{Co-supervisor}\renewcommand{\CosupervisorReportPa}{\noindent نام کامل استاد مشاور: ~\textbf{\CosupervisorNamePa} \hrulefill \\
+\begin{tabular}{p{0.17\textwidth}p{0.28\textwidth}p{0.15\textwidth}p{0.17\textwidth}p{0.1\textwidth}}
+\textit{مرتبهٔ علمی}     & \textbf{\CosupervisorTitlePa} & \textit{شمارهٔ ملی}       & \Cosupervisorid         & \multicolumn{1}{c}{امضا} \\
+\textit{وابستگی سازمانی} & \CosupervisorAffiliationPa    & \textit{رایانامه سازمانی} & \lr{\Cosupervisoremail} & ~
+\end{tabular}
+} \renewcommand{\CosupervisorReportLa}{\noindent Co-supervisor:~\textbf{\CosupervisorNameLa} \hrulefill \\
+\begin{tabular}{p{0.11\textwidth}p{0.29\textwidth}p{0.18\textwidth}p{0.17\textwidth}p{0.12\textwidth}}
+\textit{Title}       & \textbf{\CosupervisorTitleLa} & \textit{National ID}     & \Cosupervisorid    & \multicolumn{1}{c}{Signature} \\
+\textit{Affiliation} & \CosupervisorAffiliationLa    & \textit{Official E-Mail} & \Cosupervisoremail & ~  
+\end{tabular} }\renewcommand{\CosupervisorVspace}{~\\[0.5mm]}}
+
+\NewDocumentCommand{\CosupervisorTitle}{m m}{\renewcommand{\CosupervisorTitlePa}{#1}\renewcommand{\CosupervisorTitleLa}{#2}}
+
+\NewDocumentCommand{\CosupervisorAffiliation}{m m}{\renewcommand{\CosupervisorAffiliationPa}{#1}\renewcommand{\CosupervisorAffiliationLa}{#2}}
+
+\NewDocumentCommand{\CosupervisorID}{m}{\renewcommand{\Cosupervisorid}{#1}}
+
+\NewDocumentCommand{\CosupervisorEMAIL}{m}{\renewcommand{\Cosupervisoremail}{#1}}
+
+
+
+
+
+
+% 2nd Co-supervisor
+\newcommand{\SecondCosupervisorNamePa}{~} \newcommand{\SecondCosupervisorNameLa}{~}
+\newcommand{\SecondCosupervisorTitlePa}{~} \newcommand{\SecondCosupervisorTitleLa}{~}
+\newcommand{\SecondCosupervisorAffiliationPa}{~} \newcommand{\SecondCosupervisorAffiliationLa}{~}
+\newcommand{\SecondCosupervisorid}{~}
+\newcommand{\SecondCosupervisoremail}{~}
+\newcommand{\SecondCosupervisorReportPa}{~} \newcommand{\SecondCosupervisorReportLa}{~}
+\newcommand{\SecondCosupervisorVspace}{~}
+\NewDocumentCommand{\SecondCosupervisorName}{m m}{\renewcommand{\SecondCosupervisorNamePa}{#1}\renewcommand{\SecondCosupervisorNameLa}{#2}\renewcommand{\captionthreePa}{استادان مشاور}\renewcommand{\captionthreeLa}{Co-supervisors}\renewcommand{\SecondCosupervisorReportPa}{\noindent نام کامل استاد مشاور دوم: ~\textbf{\SecondCosupervisorNamePa} \hrulefill \\
+\begin{tabular}{p{0.17\textwidth}p{0.28\textwidth}p{0.15\textwidth}p{0.17\textwidth}p{0.1\textwidth}}
+\textit{مرتبهٔ علمی}     & \textbf{\SecondCosupervisorTitlePa} & \textit{شمارهٔ ملی}       & \SecondCosupervisorid         & \multicolumn{1}{c}{امضا} \\
+\textit{وابستگی سازمانی} & \SecondCosupervisorAffiliationPa    & \textit{رایانامه سازمانی} & \lr{\SecondCosupervisoremail} & ~ 
+\end{tabular}
+} \renewcommand{\SecondCosupervisorReportLa}{\noindent Second Co-supervisor:~\textbf{\SecondCosupervisorNameLa} \hrulefill \\
+\begin{tabular}{p{0.11\textwidth}p{0.29\textwidth}p{0.18\textwidth}p{0.17\textwidth}p{0.12\textwidth}}
+\textit{Title}       & \textbf{\SecondCosupervisorTitleLa} & \textit{National ID}     & \SecondCosupervisorid    & \multicolumn{1}{c}{Signature} \\
+\textit{Affiliation} & \SecondCosupervisorAffiliationLa    & \textit{Official E-Mail} & \SecondCosupervisoremail & ~  
+\end{tabular} }\renewcommand{\SecondCosupervisorVspace}{~\\[0.5mm]}}
+
+\NewDocumentCommand{\SecondCosupervisorTitle}{m m}{\renewcommand{\SecondCosupervisorTitlePa}{#1}\renewcommand{\SecondCosupervisorTitleLa}{#2}}
+
+\NewDocumentCommand{\SecondCosupervisorAffiliation}{m m}{\renewcommand{\SecondCosupervisorAffiliationPa}{#1}\renewcommand{\SecondCosupervisorAffiliationLa}{#2}}
+
+\NewDocumentCommand{\SecondCosupervisorID}{m}{\renewcommand{\SecondCosupervisorid}{#1}}
+
+\NewDocumentCommand{\SecondCosupervisorEMAIL}{m}{\renewcommand{\SecondCosupervisoremail}{#1}}
+
+
+
+
+
+
+% 1st Examiner
+\newcommand{\FirstExaminerNamePa}{~} \newcommand{\FirstExaminerNameLa}{~}
+\newcommand{\FirstExaminerTitlePa}{~} \newcommand{\FirstExaminerTitleLa}{~}
+\newcommand{\FirstExaminerAffiliationPa}{~} \newcommand{\FirstExaminerAffiliationLa}{~}
+\newcommand{\FirstExaminerid}{~}
+\newcommand{\FirstExamineremail}{~}
+\newcommand{\FirstExaminerReportPa}{~} \newcommand{\FirstExaminerReportLa}{~}
+\newcommand{\FirstExaminerVspace}{~}
+\NewDocumentCommand{\FirstExaminerName}{m m}{\renewcommand{\FirstExaminerNamePa}{#1}\renewcommand{\FirstExaminerNameLa}{#2}\renewcommand{\FirstExaminerReportPa}{\noindent نام کامل استاد داور اول: ~\textbf{\FirstExaminerNamePa} \hrulefill \\
+\begin{tabular}{p{0.17\textwidth}p{0.28\textwidth}p{0.15\textwidth}p{0.17\textwidth}p{0.1\textwidth}}
+\textit{مرتبهٔ علمی}     & \textbf{\FirstExaminerTitlePa} & \textit{شمارهٔ ملی}       & \FirstExaminerid         & \multicolumn{1}{c}{امضا} \\
+\textit{وابستگی سازمانی} & \FirstExaminerAffiliationPa    & \textit{رایانامه سازمانی} & \lr{\FirstExamineremail} & ~
+\end{tabular}
+} \renewcommand{\FirstExaminerReportLa}{\noindent First Examiner:~\textbf{\FirstExaminerNameLa} \hrulefill \\
+\begin{tabular}{p{0.11\textwidth}p{0.29\textwidth}p{0.18\textwidth}p{0.17\textwidth}p{0.12\textwidth}}
+\textit{Title}       & \textbf{\FirstExaminerTitleLa} & \textit{National ID}     & \FirstExaminerid    & \multicolumn{1}{c}{Signature} \\
+\textit{Affiliation} & \FirstExaminerAffiliationLa    & \textit{Official E-Mail} & \FirstExamineremail & ~
+\end{tabular} }\renewcommand{\FirstExaminerVspace}{~\\[0.5mm]}}
+
+\NewDocumentCommand{\FirstExaminerTitle}{m m}{\renewcommand{\FirstExaminerTitlePa}{#1}\renewcommand{\FirstExaminerTitleLa}{#2}}
+
+\NewDocumentCommand{\FirstExaminerAffiliation}{m m}{\renewcommand{\FirstExaminerAffiliationPa}{#1}\renewcommand{\FirstExaminerAffiliationLa}{#2}}
+
+\NewDocumentCommand{\FirstExaminerID}{m}{\renewcommand{\FirstExaminerid}{#1}}
+
+\NewDocumentCommand{\FirstExaminerEMAIL}{m}{\renewcommand{\FirstExamineremail}{#1}}
+
+
+
+
+
+
+% 2nd Examiner
+\newcommand{\SecondExaminerNamePa}{~} \newcommand{\SecondExaminerNameLa}{~}
+\newcommand{\SecondExaminerTitlePa}{~} \newcommand{\SecondExaminerTitleLa}{~}
+\newcommand{\SecondExaminerAffiliationPa}{~} \newcommand{\SecondExaminerAffiliationLa}{~}
+\newcommand{\SecondExaminerid}{~}
+\newcommand{\SecondExamineremail}{~}
+\newcommand{\SecondExaminerReportPa}{~} \newcommand{\SecondExaminerReportLa}{~}
+\newcommand{\SecondExaminerVspace}{~}
+\NewDocumentCommand{\SecondExaminerName}{m m}{\renewcommand{\SecondExaminerNamePa}{#1}\renewcommand{\SecondExaminerNameLa}{#2}\renewcommand{\SecondExaminerReportPa}{\noindent نام کامل استاد داور دوم: ~\textbf{\SecondExaminerNamePa} \hrulefill \\
+\begin{tabular}{p{0.17\textwidth}p{0.28\textwidth}p{0.15\textwidth}p{0.17\textwidth}p{0.1\textwidth}}
+\textit{مرتبهٔ علمی}     & \textbf{\SecondExaminerTitlePa} & \textit{شمارهٔ ملی}       & \SecondExaminerid         & \multicolumn{1}{c}{امضا} \\
+\textit{وابستگی سازمانی} & \SecondExaminerAffiliationPa    & \textit{رایانامه سازمانی} & \lr{\SecondExamineremail} & ~
+\end{tabular}
+}\renewcommand{\SecondExaminerReportLa}{\noindent Second Examiner:~\textbf{\SecondExaminerNameLa} \hrulefill \\
+\begin{tabular}{p{0.11\textwidth}p{0.29\textwidth}p{0.18\textwidth}p{0.17\textwidth}p{0.12\textwidth}}
+\textit{Title}       & \textbf{\SecondExaminerTitleLa} & \textit{National ID}     & \SecondExaminerid    & \multicolumn{1}{c}{Signature} \\
+\textit{Affiliation} & \SecondExaminerAffiliationLa    & \textit{Official E-Mail} & \SecondExamineremail & ~
+\end{tabular}}\renewcommand{\SecondExaminerVspace}{~\\[0.5mm]}}
+
+\NewDocumentCommand{\SecondExaminerTitle}{m m}{\renewcommand{\SecondExaminerTitlePa}{#1}\renewcommand{\SecondExaminerTitleLa}{#2}}
+
+\NewDocumentCommand{\SecondExaminerAffiliation}{m m}{\renewcommand{\SecondExaminerAffiliationPa}{#1}\renewcommand{\SecondExaminerAffiliationLa}{#2}}
+
+\NewDocumentCommand{\SecondExaminerID}{m}{\renewcommand{\SecondExaminerid}{#1}}
+
+\NewDocumentCommand{\SecondExaminerEMAIL}{m}{\renewcommand{\SecondExamineremail}{#1}}
+
+
+
+
+
+
+% 3rd Examiner
+\newcommand{\ThirdExaminerNamePa}{~} \newcommand{\ThirdExaminerNameLa}{~}
+\newcommand{\ThirdExaminerTitlePa}{~} \newcommand{\ThirdExaminerTitleLa}{~}
+\newcommand{\ThirdExaminerAffiliationPa}{~} \newcommand{\ThirdExaminerAffiliationLa}{~}
+\newcommand{\ThirdExaminerid}{~}
+\newcommand{\ThirdExamineremail}{~}
+\newcommand{\ThirdExaminerReportPa}{~} \newcommand{\ThirdExaminerReportLa}{~}
+\newcommand{\ThirdExaminerVspace}{~}
+\NewDocumentCommand{\ThirdExaminerName}{m m}{\renewcommand{\ThirdExaminerNamePa}{#1}\renewcommand{\ThirdExaminerNameLa}{#2}\renewcommand{\ThirdExaminerReportPa}{\noindent نام کامل استاد داور سوم: ~\textbf{\ThirdExaminerNamePa} \hrulefill \\
+\begin{tabular}{p{0.17\textwidth}p{0.28\textwidth}p{0.15\textwidth}p{0.17\textwidth}p{0.1\textwidth}}
+\textit{مرتبهٔ علمی}     & \textbf{\ThirdExaminerTitlePa} & \textit{شمارهٔ ملی}       & \ThirdExaminerid         & \multicolumn{1}{c}{امضا} \\
+\textit{وابستگی سازمانی} & \ThirdExaminerAffiliationPa    & \textit{رایانامه سازمانی} & \lr{\ThirdExamineremail} & ~
+\end{tabular}
+}\renewcommand{\ThirdExaminerReportLa}{\noindent Third Examiner:~\textbf{\ThirdExaminerNameLa} \hrulefill \\
+\begin{tabular}{p{0.11\textwidth}p{0.29\textwidth}p{0.18\textwidth}p{0.17\textwidth}p{0.12\textwidth}}
+\textit{Title}       & \textbf{\ThirdExaminerTitleLa} & \textit{National ID}     & \ThirdExaminerid    & \multicolumn{1}{c}{Signature} \\
+\textit{Affiliation} & \ThirdExaminerAffiliationLa    & \textit{Official E-Mail} & \ThirdExamineremail & ~
+\end{tabular} }\renewcommand{\ThirdExaminerVspace}{~\\[0.5mm]}}
+
+\NewDocumentCommand{\ThirdExaminerTitle}{m m}{\renewcommand{\ThirdExaminerTitlePa}{#1}\renewcommand{\ThirdExaminerTitleLa}{#2}}
+
+\NewDocumentCommand{\ThirdExaminerAffiliation}{m m}{\renewcommand{\ThirdExaminerAffiliationPa}{#1}\renewcommand{\ThirdExaminerAffiliationLa}{#2}}
+
+\NewDocumentCommand{\ThirdExaminerID}{m}{\renewcommand{\ThirdExaminerid}{#1}}
+
+\NewDocumentCommand{\ThirdExaminerEMAIL}{m}{\renewcommand{\ThirdExamineremail}{#1}}
+
+
+
+
+
+
+% Representative
+\newcommand{\RepresentativeNamePa}{~} \newcommand{\RepresentativeNameLa}{~}
+\newcommand{\Representativeid}{~}
+\newcommand{\Representativeemail}{~}
+\newcommand{\RepresentativeReportPa}{~} \newcommand{\RepresentativeReportLa}{~}
+\NewDocumentCommand{\RepresentativeName}{m m}{\renewcommand{\RepresentativeNamePa}{#1}\renewcommand{\RepresentativeNameLa}{#2}\renewcommand{\RepresentativeReportPa}{\noindent نماینده‌ی تحصیلات تکمیلی \hrulefill \\[0.25cm]
+\begin{tabular}{p{0.15\textwidth}p{0.52\textwidth}p{0.2\textwidth}}
+\textit{نام کامل}         & \textbf{\RepresentativeNamePa} &      \\
+\textit{رایانامه سازمانی} & \lr{\Representativeemail}      & \multicolumn{1}{c}{امضا} \\
+\textit{شمارهٔ ملی}       & \Representativeid             & 
+\end{tabular}
+}\renewcommand{\RepresentativeReportLa}{\noindent The Representative of Graduate and Professional Studies Office \hrulefill \\
+\begin{tabular}{p{0.18\textwidth}p{0.49\textwidth}p{0.20\textwidth}}
+\textit{Full Name}       & \textbf{\RepresentativeNameLa} &           \\
+\textit{Official E-Mail} & \Representativeemail           & \multicolumn{1}{c}{Signature} \\
+\textit{National ID}     & \Representativeid             &
+\end{tabular} } }
+
+\NewDocumentCommand{\RepresentativeTitle}{m m}{\renewcommand{\RepresentativeTitlePa}{#1}\renewcommand{\RepresentativeTitleLa}{#2}}
+
+\NewDocumentCommand{\RepresentativeAffiliation}{m m}{\renewcommand{\RepresentativeAffiliationPa}{#1}\renewcommand{\RepresentativeAffiliationLa}{#2}}
+
+\NewDocumentCommand{\RepresentativeID}{m}{\renewcommand{\Representativeid}{#1}}
+
+\NewDocumentCommand{\RepresentativeEMAIL}{m}{\renewcommand{\Representativeemail}{#1}}
+
+
+
+
+
+% Persian Title Page
+\NewDocumentCommand{\titlepageParsi}{}{\begin{center}
+\InstituteLogoPa ~\\[0.25cm]
+\InstitutePa ~\\
+\FacultyPa ~\\
+\DepartmentPa ~\\[0.5cm]
+
+\ParsaTargetPa ~\\
+\StudentMajorPa ~ \StudentMinorPa ~\\[1cm]
+
+{\Large \textbf \ParsaTitlePa} ~\\[0.25cm]
+
+\captiononePa ~\\
+\textbf{\StudentNamePa} ~\\[1cm]
+
+\captiontwoPa ~\\
+\textbf{\SupervisorNamePa \\ \SecondSupervisorNamePa} ~\\[1cm]
+
+\captionthreePa ~\\
+\textbf{\CosupervisorNamePa \\ \SecondCosupervisorNamePa} ~\\[1cm]
+\vfill
+\textbf{\ParsaCompilationDatePa}
+\end{center}}
+
+
+
+
+
+
+% Latin Title Page
+\NewDocumentCommand{\titlepageLatin}{}{\begin{latin} \begin{center}
+\InstituteLogoLa ~\\[0.25cm]
+\InstituteLa ~\\
+\FacultyLa ~\\
+\DepartmentLa ~\\[0.5cm]
+
+\emph{\ParsaTargetLa} ~\\
+\StudentMajorLa ~ \StudentMinorLa ~\\[1cm]
+
+{\Large \textbf \ParsaTitleLa} ~\\[0.25cm]
+
+\captiononeLa ~\\
+\textbf{\StudentNameLa} ~\\[1cm]
+
+\captiontwoLa ~\\
+\textbf{\SupervisorNameLa \\ \SecondSupervisorNameLa} ~\\[1cm]
+
+\captionthreeLa ~\\
+\textbf{\CosupervisorNameLa \\ \SecondCosupervisorNameLa} ~\\[1cm]
+\vfill
+\textbf{\ParsaCompilationDateLa}
+\end{center} \end{latin}}
+
+
+
+
+
+%Persian Abstract
+\NewDocumentEnvironment{ParsaAbstractParsi}{+b}{
+\section*{چکیده} \addcontentsline{toc}{chapter}{چکیده}
+#1
+\vspace*{\fill}}{}
+
+
+
+
+
+% Latin Abstract
+\NewDocumentEnvironment{ParsaAbstractLatin}{+b}{
+\begin{latin}
+\section*{Abstract}
+#1
+\end{latin}
+\vspace*{\fill}}{}
+
+
+
+
+
+% Page of In the name of god
+\newcommand{\parsapicture}{~}
+\NewDocumentCommand{\ParsaPicture}{m}{~\newpage \vspace*{\fill} \includegraphics[width=\textwidth]{#1} ~ \vspace*{\fill} ~\newpage}
+
+
+
+
+
+
+% Credit
+\NewDocumentCommand{\ParsaCredit}{}{\begin{minipage}{1\textwidth}
+\section*{\centering اصالت و مالکیت اثر}
+\noindent این‌جانب ~\textbf{\StudentNamePa}~ دانش‌آموخته‌ی ~\textbf{\StudentDegreePa}~ \textbf{\StudentMajorPa}~ \textbf{\StudentMinorPa}~ \textbf{\FacultyPa}~ \textbf{\InstitutePa}~ به شماره دانشجویی ~\textbf{\Studentnumber}~ پدیدآورنده‌ی ~\textbf{\ParsaTypePa}~ با عنوان ~\textbf{\ParsaTitlePa}~ با راهنمایی ~\textbf{\SupervisorNamePa}، بر پایه‌ی قوانین و مقررات، از جمله «دستورالعمل نحوه‌ی بررسی تخلفات پژوهشی» و «مصادیق تخلفات پژوهشی» مصوب ۲۵ اسفند ۱۳۹۳ وزارت علوم، تحقیقات و فناوری، متعهد می‌شوم که:
+\begin{enumerate}
+\item این ~\ParsaTypePa ~ دستاورد پژوهش این‌جانب و محتوای آن از درستی و اصالت برخوردار است؛
+\item حقوق معنوی همه‌ی کسانی را که در به دست آمدن نتایج اصلی ~\ParsaTypePa ~ تأثیرگذار بوده‌اند، رعایت کرده‌ام و هنگام کاربرد دستاورد پژوهش‌های دیگران در آن، با دقت و به‌درستی به آن‌ها استناد کرده‌ام؛
+\item این ~\ParsaTypePa ~ و محتوای آن، تاکنون توسط این‌جانب یا فرد دیگری، برای دریافت هیچ‌گونه مدرک یا امتیازی در هیچ‌جا ارائه نشده‌است؛
+\item همه‌ی حقوق مادی این ~\ParsaTypePa ~ از آن ~\InstitutePa ~ است و آثار برگرفته از آن با وابستگی سازمانی ~\InstitutePa ~ منتشر خواهد شد؛
+\item در همه‌ی آثار برگرفته از این ~\ParsaTypePa ، نام استاد(ان) راهنما و اگر استاد راهنمای نخست تشخیص دهد، نام استاد(ان) مشاور و رایانامه‌ی سازمانی آنان را می‌آورم؛
+\item در همه‌ی گام‌های انجام این ~\ParsaTypePa ، هرگاه به اطلاعات شخصی افراد یا اطلاعات سازمان‌ها دسترسی داشته‌باشم یا آن‌ها را به کار برده‌ام، رازداری و اخلاق پژوهشی را رعایت کرده‌ام.
+\end{enumerate}
+\begin{center} تاریخ و امضا \end{center}
+\vspace{1.5cm}
+\section*{\centering حقوق \InstitutePa}
+این گزارش و همه‌ی حقوق مادی و محصولات آن (مقاله‌ها، کتاب‌ها، پروانه‌های اختراع، برنامه‌های رایانه‌ای، نرم‌افزارها، تجهیزات ساخته شده و مانند آن‌ها) بر پایه‌ی «قانون حمایت حقوق مولفان و مصنفان و هنرمندان» مصوب سال ۱۳۴۸ و اصلاحیه‌های بعدی آن و همچنین «آئین‌نامه‌ی اجرایی این قانون» از آن ~\InstitutePa ~ است و هرگونه استفاده از همه یا پاره‌ای از آن شامل نقل‌قول، تکثیر، انتشار، کاربرد نتایج، تکمیل و مانند آن‌ها به صورت چاپی، الکترونیکی یا وسایل دیگر، تنها با اجازه نوشتاری ~\InstitutePa ~ شدنی‌است. نقل‌قول محدود در انتشارات علمی مانند کتاب‌ها و مقاله‌ها یا پایان‌نامه‌ها و رساله‌های دیگر با نوشتن اطلاعات کامل کتاب‌شناختی، نیازی به مجوز ~\InstitutePa ~ ندارد.
+\end{minipage}}
+
+
+
+
+
+% Persian Examination Report
+\NewDocumentCommand{\ExaminationReportPa}{}{
+\begin{table}[H] \adjustbox{pagecenter}{
+\begin{tabular}{ccc}
+\multirow{3}{*}{\InstituteLogoPaSmall} & به نام خدا                                         & ~                \\
+                                       & \InstitutePa                                       & تاریخ دفاع       \\
+                                       & صورت جلسه‌ی دفاع از \ParsaTypePa ~\StudentDegreePa & \ParsaExamDatePa
+\end{tabular} }
+\end{table} 
+\begin{minipage}{1\textwidth} \begin{flushright}
+\begin{tabular}{p{0.23\textwidth}p{0.66\textwidth}}
+\textit{نام کامل دانش‌آموخته} & \textbf{\StudentNamePa}          \\
+\textit{رشته‌ی تحصیلی}        & \StudentMajorPa ~\StudentMinorPa \\
+\textit{شماره ملی}            & \Studentid                       \\
+\textit{رایانامه شخصی}        & \Studentemail                    \\
+\textit{عنوان \ParsaTypePa :} & \textbf{\ParsaTitlePa}          
+\end{tabular}
+\end{flushright} \end{minipage} ~\\
+
+\begin{minipage}{1\textwidth}
+\begin{center} \textbf{
+هیئت داوران پس از شنیدن گزارش و دفاع دانشجو، \ParsaTypePa ‌ی وی را داوری کرده \\
+و با درجه‌ی عالی $\bigcirc$ بسیار خوب $\bigcirc$ خوب $\bigcirc$ پذیرفته‌نشده $\bigcirc$ ارزیابی کرد.
+} \end{center}
+\end{minipage} ~\\
+
+\SupervisorReportPa         \SupervisorVspace
+\SecondSupervisorReportPa   \SecondSupervisorVspace
+\CosupervisorReportPa       \CosupervisorVspace
+\SecondCosupervisorReportPa \SecondCosupervisorVspace
+\FirstExaminerReportPa      \FirstExaminerVspace
+\SecondExaminerReportPa     \SecondExaminerVspace
+\ThirdExaminerReportPa      \ThirdExaminerVspace
+\RepresentativeReportPa }
+
+
+
+
+
+% Latin Examination Report
+\NewDocumentCommand{\ExaminationReportLa}{}{\begin{latin}
+\begin{table}[H] \adjustbox{pagecenter}{
+\begin{tabular}{ccc}
+\multirow{3}{*}{\InstituteLogoLaSmall}& \textsc{In The Name of God} & ~ \\
+                         & \InstituteLa                             & Date \\
+                         & \emph{A \ParsaTypeLa ~Examination Report}& \ParsaExamDateLa
+\end{tabular} }
+\end{table} 
+\begin{minipage}{1\textwidth}
+\begin{tabular}{p{0.2\textwidth}p{0.7\textwidth}}
+\textit{Full Name}           & \textbf{\StudentNameLa} \\
+\textit{Discipline}          & \StudentMajorLa ~\StudentMinorLa \\
+\textit{National ID}         & \Studentid \\
+\textit{Personal E-Mail}     & \Studentemail \\
+\textit{\ParsaTypeLa ~Title} & \textbf{\ParsaTitleLa}   \\
+\end{tabular} 
+\end{minipage} ~\\
+
+\begin{minipage}{0.9\textwidth}
+\begin{center} \textbf{
+Following the oral defence by the student, the examination committee evaluated the \ParsaTypeLa ~as:\\
+Excellent $\bigcirc$ Very Good $\bigcirc$ Good $\bigcirc$ Not Acceptable $\bigcirc$\@.
+} \end{center}
+\end{minipage} ~\\
+
+\SupervisorReportLa         \SupervisorVspace
+\SecondSupervisorReportLa   \SecondSupervisorVspace
+\CosupervisorReportLa       \CosupervisorVspace
+\SecondCosupervisorReportLa \SecondCosupervisorVspace
+\FirstExaminerReportLa      \FirstExaminerVspace
+\SecondExaminerReportLa     \SecondExaminerVspace
+\ThirdExaminerReportLa      \ThirdExaminerVspace
+\RepresentativeReportLa                          \end{latin}}
+
+
+
+
+
+
+% Copyleft Page
+\NewDocumentCommand{\ParsaCopyleft}{}{\begin{center} \begin{minipage}{0.67\textwidth}
+\section*{\centering مجوز بهره‌برداری}
+بهره‌برداری از این  \ParsaTypePa ~در چهارچوب مقررات کتاب‌خانه و با توجه به محدودیتی که توسط استاد راهنما به شرح زیر تعیین می‌گردد، بلامانع است:\\
+\begin{itemize}
+\item[$\bigcirc$] بهره‌برداری از این \ParsaTypePa ~برای همگان و با ذکر منبع، بلامانع است.
+\item[$\bigcirc$] بهره‌برداری از این \ParsaTypePa ~با اخذ مجوز از استاد راهنما و با ذکر منبع، بلامانع است.
+\item[$\bigcirc$] بهره‌برداری از این \ParsaTypePa ~تا تاریخ .................... ممنوع است.
+\end{itemize}
+\begin{center}
+استاد راهنما: \SupervisorNamePa \\
+امضا
+\end{center} \end{minipage} \end{center} }
+
+
+
+
+
+% Dedicate
+\NewDocumentCommand{\ParsaDedicate}{+m}{
+\vspace*{\fill} 
+\begin{center} 
+\begin{Large}
+#1
+\end{Large}
+\end{center}
+\vspace*{\fill}}
+
+
+
+
+
+% Acknowledgment
+\NewDocumentEnvironment{ParsaAcknowledgment}{+b}{
+\chapter*{\centering سپاس‌گزاری}
+\addcontentsline{toc}{chapter}{سپاس‌گزاری} \thispagestyle{empty}
+#1}{}
+
+
+
+
+
+% CV
+\NewDocumentEnvironment{ParsaCV}{+b}{\newpage
+\vspace*{\fill} 
+\begin{center}
+\begin{minipage}{0.67\textwidth}
+#1
+\end{minipage}
+\end{center}
+\vspace*{\fill}\newpage}{}
